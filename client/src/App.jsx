@@ -18,16 +18,25 @@ import {
 } from "framer-motion";
 
 // ======================================================
+// BACKEND URL
+// ======================================================
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://ai-space-explorer.onrender.com";
+
+// ======================================================
 // INITIAL AI MESSAGE
 // ======================================================
 
 const initialMessage = {
   type: "ai",
-  text: "Hello, explorer. I am SPACE AI. Ask me anything about astronomy, planets, galaxies, black holes or space exploration.",
+  text:
+    "Hello, explorer. I am SPACE AI. Ask me anything about astronomy, planets, galaxies, black holes or space exploration.",
 };
 
 // ======================================================
-// PLANETS
+// PLANETS DATA
 // ======================================================
 
 const planets = [
@@ -43,6 +52,7 @@ const planets = [
     description:
       "Mercury is the smallest planet in our solar system and the closest planet to the Sun. It has a heavily cratered surface and experiences extreme temperature changes.",
   },
+
   {
     name: "Venus",
     subtitle: "The Hottest Planet",
@@ -55,6 +65,7 @@ const planets = [
     description:
       "Venus is the second planet from the Sun. Its thick carbon dioxide atmosphere traps heat, making it the hottest planet in the solar system.",
   },
+
   {
     name: "Earth",
     subtitle: "Our Home",
@@ -67,6 +78,7 @@ const planets = [
     description:
       "Earth is the third planet from the Sun and the only world currently known to support life. Around 71 percent of its surface is covered by oceans.",
   },
+
   {
     name: "Mars",
     subtitle: "The Red Planet",
@@ -79,6 +91,7 @@ const planets = [
     description:
       "Mars is a cold desert world known for its reddish surface. It is home to Olympus Mons, the largest known volcano in the solar system.",
   },
+
   {
     name: "Jupiter",
     subtitle: "The Giant Planet",
@@ -91,6 +104,7 @@ const planets = [
     description:
       "Jupiter is the largest planet in our solar system. It is a gas giant famous for the Great Red Spot, a massive storm larger than Earth.",
   },
+
   {
     name: "Saturn",
     subtitle: "The Ringed Planet",
@@ -103,6 +117,7 @@ const planets = [
     description:
       "Saturn is a gas giant famous for its spectacular ring system, which is made mostly of water ice, rock and dust.",
   },
+
   {
     name: "Uranus",
     subtitle: "The Sideways Planet",
@@ -115,6 +130,7 @@ const planets = [
     description:
       "Uranus is an ice giant with a blue-green appearance caused by methane in its atmosphere. It rotates almost sideways because of its extreme axial tilt.",
   },
+
   {
     name: "Neptune",
     subtitle: "The Windy Planet",
@@ -130,7 +146,7 @@ const planets = [
 ];
 
 // ======================================================
-// SOLAR SYSTEM SETTINGS
+// SOLAR SYSTEM DATA
 // ======================================================
 
 const solarSystemPlanets = [
@@ -141,6 +157,7 @@ const solarSystemPlanets = [
     duration: 8,
     startAngle: 20,
   },
+
   {
     planet: planets[1],
     orbitClass: "solar-orbit-2",
@@ -148,6 +165,7 @@ const solarSystemPlanets = [
     duration: 11,
     startAngle: 70,
   },
+
   {
     planet: planets[2],
     orbitClass: "solar-orbit-3",
@@ -155,6 +173,7 @@ const solarSystemPlanets = [
     duration: 14,
     startAngle: 130,
   },
+
   {
     planet: planets[3],
     orbitClass: "solar-orbit-4",
@@ -162,6 +181,7 @@ const solarSystemPlanets = [
     duration: 18,
     startAngle: 190,
   },
+
   {
     planet: planets[4],
     orbitClass: "solar-orbit-5",
@@ -169,6 +189,7 @@ const solarSystemPlanets = [
     duration: 24,
     startAngle: 235,
   },
+
   {
     planet: planets[5],
     orbitClass: "solar-orbit-6",
@@ -176,6 +197,7 @@ const solarSystemPlanets = [
     duration: 30,
     startAngle: 285,
   },
+
   {
     planet: planets[6],
     orbitClass: "solar-orbit-7",
@@ -183,6 +205,7 @@ const solarSystemPlanets = [
     duration: 36,
     startAngle: 320,
   },
+
   {
     planet: planets[7],
     orbitClass: "solar-orbit-8",
@@ -208,6 +231,7 @@ const missions = [
     description:
       "Apollo 11 was the first mission to land humans on the Moon. Neil Armstrong and Buzz Aldrin walked on the lunar surface while Michael Collins remained in lunar orbit.",
   },
+
   {
     name: "Voyager 1",
     year: "1977",
@@ -219,6 +243,7 @@ const missions = [
     description:
       "Voyager 1 explored Jupiter and Saturn before continuing outward. It later became the first human-made object to enter interstellar space.",
   },
+
   {
     name: "Mars Perseverance",
     year: "2020",
@@ -230,6 +255,7 @@ const missions = [
     description:
       "Perseverance landed in Jezero Crater to search for signs of ancient microbial life, study Martian geology and collect samples.",
   },
+
   {
     name: "Chandrayaan-3",
     year: "2023",
@@ -257,6 +283,7 @@ const galaxies = [
     description:
       "The Milky Way is the galaxy containing our solar system. It contains billions of stars, gas, dust and planetary systems.",
   },
+
   {
     name: "Andromeda",
     type: "Spiral Galaxy",
@@ -266,6 +293,7 @@ const galaxies = [
     description:
       "Andromeda is the nearest large galaxy to the Milky Way and is moving toward our galaxy.",
   },
+
   {
     name: "Sombrero Galaxy",
     type: "Spiral Galaxy",
@@ -275,6 +303,7 @@ const galaxies = [
     description:
       "The Sombrero Galaxy is famous for its bright central bulge and dark dust lane.",
   },
+
   {
     name: "Triangulum Galaxy",
     type: "Spiral Galaxy",
@@ -287,7 +316,7 @@ const galaxies = [
 ];
 
 // ======================================================
-// ORBIT PLANET
+// ORBIT PLANET COMPONENT
 // ======================================================
 
 function OrbitPlanet({
@@ -343,7 +372,9 @@ function OrbitPlanet({
         <motion.button
           className={`solar-planet ${item.planetClass}`}
           onClick={() =>
-            onSelect(item.planet)
+            onSelect(
+              item.planet
+            )
           }
           whileHover={{
             scale: 1.6,
@@ -356,7 +387,10 @@ function OrbitPlanet({
           }
         >
           <span className="solar-planet-tooltip">
-            {item.planet.name}
+            {
+              item.planet
+                .name
+            }
           </span>
 
           {item.planet.name ===
@@ -370,13 +404,13 @@ function OrbitPlanet({
 }
 
 // ======================================================
-// APP
+// MAIN APP
 // ======================================================
 
 function App() {
-  // ======================================================
-  // LOADING SCREEN
-  // ======================================================
+  // ====================================================
+  // LOADING
+  // ====================================================
 
   const [
     loading,
@@ -388,18 +422,18 @@ function App() {
     setLoadingProgress,
   ] = useState(0);
 
-  // ======================================================
-  // MOBILE MENU
-  // ======================================================
+  // ====================================================
+  // NAVIGATION
+  // ====================================================
 
   const [
     mobileMenuOpen,
     setMobileMenuOpen,
   ] = useState(false);
 
-  // ======================================================
+  // ====================================================
   // BACKEND
-  // ======================================================
+  // ====================================================
 
   const [
     backendOnline,
@@ -411,9 +445,9 @@ function App() {
     setBackendMode,
   ] = useState("");
 
-  // ======================================================
-  // CHAT
-  // ======================================================
+  // ====================================================
+  // AI CHAT
+  // ====================================================
 
   const [
     question,
@@ -440,9 +474,9 @@ function App() {
   const messagesEndRef =
     useRef(null);
 
-  // ======================================================
+  // ====================================================
   // MODALS
-  // ======================================================
+  // ====================================================
 
   const [
     selectedPlanet,
@@ -471,18 +505,18 @@ function App() {
     setShowBlackHoleExperience,
   ] = useState(false);
 
-  // ======================================================
-  // SPACE TRAVEL
-  // ======================================================
+  // ====================================================
+  // TRAVEL
+  // ====================================================
 
   const [
     isWarping,
     setIsWarping,
   ] = useState(false);
 
-  // ======================================================
+  // ====================================================
   // SOLAR SYSTEM
-  // ======================================================
+  // ====================================================
 
   const [
     orbitsPaused,
@@ -492,13 +526,11 @@ function App() {
   const [
     orbitSpeed,
     setOrbitSpeed,
-  ] = useState(
-    "normal"
-  );
+  ] = useState("normal");
 
-  // ======================================================
-  // SCROLL
-  // ======================================================
+  // ====================================================
+  // SCROLL PROGRESS
+  // ====================================================
 
   const {
     scrollYProgress,
@@ -508,26 +540,31 @@ function App() {
     useSpring(
       scrollYProgress,
       {
-        stiffness: 120,
+        stiffness: 100,
         damping: 30,
         restDelta: 0.001,
       }
     );
 
-  // ======================================================
-  // LOADER EFFECT
-  // ======================================================
+  // ====================================================
+  // LOADER
+  // ====================================================
 
   useEffect(() => {
     let progress = 0;
+    let finishTimeout;
 
     const interval =
       setInterval(() => {
-        progress += Math.floor(
-          Math.random() * 8
-        ) + 2;
+        progress +=
+          Math.floor(
+            Math.random() *
+              8
+          ) + 2;
 
-        if (progress >= 100) {
+        if (
+          progress >= 100
+        ) {
           progress = 100;
 
           setLoadingProgress(
@@ -538,11 +575,12 @@ function App() {
             interval
           );
 
-          setTimeout(() => {
-            setLoading(
-              false
-            );
-          }, 500);
+          finishTimeout =
+            setTimeout(() => {
+              setLoading(
+                false
+              );
+            }, 500);
 
           return;
         }
@@ -552,15 +590,63 @@ function App() {
         );
       }, 90);
 
-    return () =>
+    return () => {
       clearInterval(
         interval
       );
+
+      if (
+        finishTimeout
+      ) {
+        clearTimeout(
+          finishTimeout
+        );
+      }
+    };
   }, []);
 
-  // ======================================================
+  // ====================================================
+  // MOBILE MENU BODY LOCK
+  // ====================================================
+
+  useEffect(() => {
+    if (
+      mobileMenuOpen
+    ) {
+      document.body.style.overflow =
+        "hidden";
+    } else {
+      document.body.style.overflow =
+        "";
+    }
+
+    return () => {
+      document.body.style.overflow =
+        "";
+    };
+  }, [
+    mobileMenuOpen,
+  ]);
+
+  // ====================================================
+  // AUTO SCROLL CHAT
+  // ====================================================
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView(
+      {
+        behavior:
+          "smooth",
+      }
+    );
+  }, [
+    messages,
+    isTyping,
+  ]);
+
+  // ====================================================
   // BACKEND CHECK
-  // ======================================================
+  // ====================================================
 
   const checkBackend =
     async () => {
@@ -571,13 +657,13 @@ function App() {
         setTimeout(
           () =>
             controller.abort(),
-          5000
+          10000
         );
 
       try {
         const response =
           await fetch(
-            "http://localhost:5000/",
+            `${API_BASE_URL}/`,
             {
               signal:
                 controller.signal,
@@ -607,7 +693,9 @@ function App() {
           false
         );
 
-        setBackendMode("");
+        setBackendMode(
+          ""
+        );
       } finally {
         clearTimeout(
           timeout
@@ -615,93 +703,26 @@ function App() {
       }
     };
 
-  // ======================================================
-  // CHECK BACKEND
-  // ======================================================
-
   useEffect(() => {
+    if (loading) return;
+
     checkBackend();
 
     const interval =
       setInterval(
         checkBackend,
-        10000
+        30000
       );
 
     return () =>
       clearInterval(
         interval
       );
-  }, []);
+  }, [loading]);
 
-  // ======================================================
-  // CHAT AUTO SCROLL
-  // ======================================================
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView(
-      {
-        behavior:
-          "smooth",
-      }
-    );
-  }, [
-    messages,
-    isTyping,
-    lastError,
-  ]);
-
-  // ======================================================
-  // MOBILE MENU SCROLL LOCK
-  // ======================================================
-
-  useEffect(() => {
-    if (
-      mobileMenuOpen
-    ) {
-      document.body.style.overflow =
-        "hidden";
-    } else {
-      document.body.style.overflow =
-        "";
-    }
-
-    return () => {
-      document.body.style.overflow =
-        "";
-    };
-  }, [
-    mobileMenuOpen,
-  ]);
-
-  const closeMobileMenu =
-    () => {
-      setMobileMenuOpen(
-        false
-      );
-    };
-
-  // ======================================================
-  // CLEAR CHAT
-  // ======================================================
-
-  const clearChat = () => {
-    if (isTyping) return;
-
-    setMessages([
-      initialMessage,
-    ]);
-
-    setQuestion("");
-
-    setLastError(
-      null
-    );
-  };
-
-  // ======================================================
-  // FRIENDLY ERROR
-  // ======================================================
+  // ====================================================
+  // FRIENDLY ERRORS
+  // ====================================================
 
   const getFriendlyError =
     (
@@ -766,7 +787,7 @@ function App() {
 
       if (
         error instanceof
-          SyntaxError
+        SyntaxError
       ) {
         return {
           type: "invalid",
@@ -782,55 +803,43 @@ function App() {
         title:
           "Connection lost",
         message:
-          "SPACE AI could not reach the backend server. Make sure the server is running on port 5000.",
+          "SPACE AI could not reach the backend server. Please try again.",
       };
     };
 
-  // ======================================================
-  // SEND MESSAGE
-  // ======================================================
+  // ====================================================
+  // SEND AI MESSAGE
+  // ====================================================
 
   const sendMessage =
-    async (
-      customQuestion
-    ) => {
-      const finalQuestion =
-        (
-          customQuestion ||
-          question
-        ).trim();
+    async () => {
+      const cleanQuestion =
+        question.trim();
 
       if (
-        !finalQuestion ||
+        !cleanQuestion ||
         isTyping ||
-        backendOnline !==
-          true
+        backendOnline ===
+          false
       ) {
         return;
       }
 
       const userMessage = {
         type: "user",
-        text:
-          finalQuestion,
+        text: cleanQuestion,
       };
 
       setMessages(
-        (previous) => [
-          ...previous,
+        (prev) => [
+          ...prev,
           userMessage,
         ]
       );
 
       setQuestion("");
-
-      setLastError(
-        null
-      );
-
-      setIsTyping(
-        true
-      );
+      setLastError(null);
+      setIsTyping(true);
 
       const controller =
         new AbortController();
@@ -839,7 +848,7 @@ function App() {
         setTimeout(
           () =>
             controller.abort(),
-          15000
+          20000
         );
 
       let status = 0;
@@ -848,7 +857,7 @@ function App() {
       try {
         const response =
           await fetch(
-            "http://localhost:5000/api/chat",
+            `${API_BASE_URL}/api/chat`,
             {
               method:
                 "POST",
@@ -858,14 +867,11 @@ function App() {
                   "application/json",
               },
 
-              signal:
-                controller.signal,
-
               body:
                 JSON.stringify(
                   {
                     message:
-                      finalQuestion,
+                      cleanQuestion,
 
                     history:
                       messages
@@ -888,6 +894,9 @@ function App() {
                         ),
                   }
                 ),
+
+              signal:
+                controller.signal,
             }
           );
 
@@ -897,92 +906,44 @@ function App() {
         const rawText =
           await response.text();
 
-        if (rawText) {
-          try {
-            data =
-              JSON.parse(
+        try {
+          data = rawText
+            ? JSON.parse(
                 rawText
-              );
-          } catch {
-            throw new SyntaxError(
-              "Invalid JSON"
-            );
-          }
-        } else {
-          data = {};
+              )
+            : {};
+        } catch {
+          throw new SyntaxError(
+            "Invalid JSON"
+          );
         }
 
         if (
           !response.ok
         ) {
-          const friendly =
-            getFriendlyError(
-              status,
-              data,
-              null
+          const requestError =
+            new Error(
+              data?.error ||
+                "Request failed"
             );
 
-          setLastError(
-            friendly
-          );
+          requestError.status =
+            response.status;
 
-          setMessages(
-            (previous) => [
-              ...previous,
-              {
-                type: "ai",
-                text:
-                  friendly.message,
-              },
-            ]
-          );
-
-          return;
+          throw requestError;
         }
 
         if (
-          !data.answer
+          !data?.answer
         ) {
-          const invalid =
-            {
-              type: "invalid",
-              title:
-                "Invalid response",
-              message:
-                "SPACE AI responded without an answer. Please try again.",
-            };
-
-          setLastError(
-            invalid
-          );
-
-          setMessages(
-            (previous) => [
-              ...previous,
-              {
-                type: "ai",
-                text:
-                  invalid.message,
-              },
-            ]
-          );
-
-          return;
-        }
-
-        setBackendOnline(
-          true
-        );
-
-        if (data.mode) {
-          setBackendMode(
-            data.mode
+          throw new SyntaxError(
+            "Missing answer"
           );
         }
 
         setMessages(
-          (previous) => [
-            ...previous,
+          (prev) => [
+            ...prev,
             {
               type: "ai",
               text:
@@ -990,42 +951,40 @@ function App() {
             },
           ]
         );
-      } catch (error) {
-        console.error(
-          "SPACE AI frontend error:",
-          error
+
+        setBackendOnline(
+          true
         );
 
-        const friendly =
+        if (
+          data.mode
+        ) {
+          setBackendMode(
+            data.mode
+          );
+        }
+      } catch (error) {
+        const friendlyError =
           getFriendlyError(
-            status,
+            status ||
+              error?.status ||
+              0,
             data,
             error
           );
 
         setLastError(
-          friendly
+          friendlyError
         );
 
         if (
-          friendly.type ===
-          "offline"
+          friendlyError.type ===
+          "offline" ||
+          friendlyError.type ===
+          "timeout"
         ) {
-          setBackendOnline(
-            false
-          );
+          checkBackend();
         }
-
-        setMessages(
-          (previous) => [
-            ...previous,
-            {
-              type: "ai",
-              text:
-                friendly.message,
-            },
-          ]
-        );
       } finally {
         clearTimeout(
           timeout
@@ -1037,9 +996,9 @@ function App() {
       }
     };
 
-  // ======================================================
+  // ====================================================
   // ENTER KEY
-  // ======================================================
+  // ====================================================
 
   const handleKeyDown =
     (event) => {
@@ -1054,11 +1013,64 @@ function App() {
       }
     };
 
+  // ====================================================
+  // CLEAR CHAT
+  // ====================================================
+
+  const clearChat = () => {
+    setMessages([
+      initialMessage,
+    ]);
+
+    setLastError(null);
+    setQuestion("");
+  };
+
+  // ====================================================
+  // SMOOTH SECTION SCROLL
+  // ====================================================
+
+  const scrollToSection =
+    (id) => {
+      const element =
+        document.getElementById(
+          id
+        );
+
+      if (element) {
+        element.scrollIntoView(
+          {
+            behavior:
+              "smooth",
+          }
+        );
+      }
+
+      setMobileMenuOpen(
+        false
+      );
+    };
+
+  // ====================================================
+  // BACK TO TOP
+  // ====================================================
+
+  const backToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // ====================================================
+  // RENDER
+  // ====================================================
+
   return (
     <>
-      {/* ====================================================
-          LOADING SCREEN
-      ==================================================== */}
+      {/* ================================================ */}
+      {/* LOADING SCREEN */}
+      {/* ================================================ */}
 
       <AnimatePresence>
         {loading && (
@@ -1080,43 +1092,32 @@ function App() {
 
             <motion.div
               className="loader-system"
-              initial={{
-                opacity: 0,
-                scale: 0.6,
-              }}
               animate={{
-                opacity: 1,
-                scale: 1,
+                y: [
+                  -4,
+                  4,
+                  -4,
+                ],
               }}
               transition={{
-                duration: 0.9,
+                duration: 3,
+                repeat:
+                  Infinity,
+                ease:
+                  "easeInOut",
               }}
             >
               <motion.div
                 className="loader-planet"
                 animate={{
                   rotate: 360,
-                  scale: [
-                    1,
-                    1.05,
-                    1,
-                  ],
                 }}
                 transition={{
-                  rotate: {
-                    duration: 8,
-                    repeat:
-                      Infinity,
-                    ease: "linear",
-                  },
-
-                  scale: {
-                    duration: 2,
-                    repeat:
-                      Infinity,
-                    ease:
-                      "easeInOut",
-                  },
+                  duration: 8,
+                  repeat:
+                    Infinity,
+                  ease:
+                    "linear",
                 }}
               >
                 <div className="loader-planet-glow"></div>
@@ -1131,7 +1132,8 @@ function App() {
                   duration: 3,
                   repeat:
                     Infinity,
-                  ease: "linear",
+                  ease:
+                    "linear",
                 }}
               >
                 <div className="loader-moon"></div>
@@ -1142,14 +1144,14 @@ function App() {
               className="loader-content"
               initial={{
                 opacity: 0,
-                y: 30,
+                y: 20,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                delay: 0.3,
+                duration: 0.7,
               }}
             >
               <p>
@@ -1158,14 +1160,13 @@ function App() {
 
               <h1>
                 SPACE
-                <span>
-                  AI
-                </span>
+                <span>AI</span>
               </h1>
 
               <small>
-                Preparing your journey
-                through the universe
+                Preparing your
+                journey through
+                the universe
               </small>
 
               <div className="loader-progress-wrapper">
@@ -1177,18 +1178,23 @@ function App() {
                     }}
                     transition={{
                       duration: 0.12,
-                      ease: "linear",
+                      ease:
+                        "linear",
                     }}
                   />
                 </div>
 
                 <div className="loader-progress-info">
                   <span>
-                    SYSTEM LOADING
+                    SYSTEM
+                    LOADING
                   </span>
 
                   <strong>
-                    {loadingProgress}%
+                    {
+                      loadingProgress
+                    }
+                    %
                   </strong>
                 </div>
               </div>
@@ -1197,9 +1203,9 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* ====================================================
-          MAIN WEBSITE
-      ==================================================== */}
+      {/* ================================================ */}
+      {/* MAIN APPLICATION */}
+      {/* ================================================ */}
 
       <motion.div
         className="app"
@@ -1207,16 +1213,18 @@ function App() {
           opacity: 0,
         }}
         animate={{
-          opacity:
-            loading
-              ? 0
-              : 1,
+          opacity: loading
+            ? 0
+            : 1,
         }}
         transition={{
           duration: 0.8,
         }}
       >
+        <Stars />
         <CursorGlow />
+
+        {/* Scroll Progress */}
 
         <motion.div
           className="scroll-progress"
@@ -1225,120 +1233,110 @@ function App() {
           }}
         />
 
-        <Stars />
+        {/* ============================================== */}
+        {/* NAVBAR */}
+        {/* ============================================== */}
 
-        {/* ==================================================
-            NAVBAR
-        ================================================== */}
-
-        <motion.nav
-          className="navbar"
-          initial={{
-            y: -100,
-            opacity: 0,
-          }}
-          animate={
-            loading
-              ? {
-                  y: -100,
-                  opacity: 0,
-                }
-              : {
-                  y: 0,
-                  opacity: 1,
-                }
-          }
-          transition={{
-            duration: 0.8,
-            delay: 0.2,
-          }}
-        >
-          <a
-            href="#home"
-            className="logo"
+        <nav className="navbar">
+          <button
+            className="nav-logo"
             onClick={
-              closeMobileMenu
+              backToTop
             }
           >
             SPACE
-            <span>
-              AI
-            </span>
-          </a>
+            <span>AI</span>
+          </button>
 
           <div className="nav-links">
-            <a href="#home">
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "home"
+                )
+              }
+            >
               Home
-            </a>
+            </button>
 
-            <a href="#planets">
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "planets"
+                )
+              }
+            >
               Planets
-            </a>
+            </button>
 
-            <a href="#solar-system">
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "solar-system"
+                )
+              }
+            >
               Solar System
-            </a>
+            </button>
 
-            <a href="#missions">
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "missions"
+                )
+              }
+            >
               Missions
-            </a>
+            </button>
 
-            <a href="#galaxy">
-              Galaxy
-            </a>
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "galaxies"
+                )
+              }
+            >
+              Galaxies
+            </button>
 
-            <a href="#blackhole">
-              Black Hole
-            </a>
-
-            <a href="#travel">
-              Travel
-            </a>
-
-            <a href="#assistant">
-              AI Assistant
-            </a>
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "ai"
+                )
+              }
+            >
+              SPACE AI
+            </button>
           </div>
 
-          <motion.a
-            href="#planets"
-            className="nav-btn"
-            whileHover={{
-              scale: 1.08,
-            }}
-            whileTap={{
-              scale: 0.95,
-            }}
-          >
-            Explore
-          </motion.a>
-
           <button
-            className={
-              mobileMenuOpen
-                ? "mobile-menu-btn active"
-                : "mobile-menu-btn"
-            }
+            className="explore-btn"
             onClick={() =>
-              setMobileMenuOpen(
-                (previous) =>
-                  !previous
+              scrollToSection(
+                "planets"
               )
             }
-            aria-label="Toggle navigation menu"
-            aria-expanded={
-              mobileMenuOpen
-            }
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            Explore
           </button>
-        </motion.nav>
 
-        {/* ==================================================
-            MOBILE MENU
-        ================================================== */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() =>
+              setMobileMenuOpen(
+                true
+              )
+            }
+            aria-label="Open menu"
+          >
+            ☰
+          </button>
+        </nav>
+
+        {/* ============================================== */}
+        {/* MOBILE NAV */}
+        {/* ============================================== */}
 
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -1354,27 +1352,29 @@ function App() {
                 exit={{
                   opacity: 0,
                 }}
-                onClick={
-                  closeMobileMenu
+                onClick={() =>
+                  setMobileMenuOpen(
+                    false
+                  )
                 }
               />
 
               <motion.div
                 className="mobile-nav-menu"
                 initial={{
-                  opacity: 0,
-                  y: -30,
-                  scale: 0.96,
+                  x: "100%",
                 }}
                 animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
+                  x: 0,
                 }}
                 exit={{
-                  opacity: 0,
-                  y: -30,
-                  scale: 0.96,
+                  x: "100%",
+                }}
+                transition={{
+                  type:
+                    "spring",
+                  stiffness: 220,
+                  damping: 25,
                 }}
               >
                 <div className="mobile-nav-header">
@@ -1387,8 +1387,10 @@ function App() {
 
                   <button
                     className="mobile-nav-close"
-                    onClick={
-                      closeMobileMenu
+                    onClick={() =>
+                      setMobileMenuOpen(
+                        false
+                      )
                     }
                   >
                     ×
@@ -1396,212 +1398,248 @@ function App() {
                 </div>
 
                 <div className="mobile-nav-links">
-                  {[
-                    ["01", "Home", "#home"],
-                    ["02", "Planets", "#planets"],
-                    ["03", "Solar System", "#solar-system"],
-                    ["04", "Missions", "#missions"],
-                    ["05", "Galaxy", "#galaxy"],
-                    ["06", "Black Hole", "#blackhole"],
-                    ["07", "Space Travel", "#travel"],
-                    ["08", "AI Assistant", "#assistant"],
-                  ].map(
-                    (item) => (
-                      <a
-                        key={
-                          item[0]
-                        }
-                        href={
-                          item[2]
-                        }
-                        onClick={
-                          closeMobileMenu
-                        }
-                      >
-                        <span>
-                          {
-                            item[0]
-                          }
-                        </span>
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "home"
+                      )
+                    }
+                  >
+                    Home
+                  </button>
 
-                        {
-                          item[1]
-                        }
-                      </a>
-                    )
-                  )}
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "planets"
+                      )
+                    }
+                  >
+                    Planets
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "solar-system"
+                      )
+                    }
+                  >
+                    Solar System
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "missions"
+                      )
+                    }
+                  >
+                    Missions
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "galaxies"
+                      )
+                    }
+                  >
+                    Galaxies
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "black-hole"
+                      )
+                    }
+                  >
+                    Black Hole
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "travel"
+                      )
+                    }
+                  >
+                    Space Travel
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      scrollToSection(
+                        "ai"
+                      )
+                    }
+                  >
+                    SPACE AI
+                  </button>
                 </div>
 
-                <a
-                  href="#assistant"
+                <button
                   className="mobile-explore-btn"
-                  onClick={
-                    closeMobileMenu
+                  onClick={() =>
+                    scrollToSection(
+                      "planets"
+                    )
                   }
                 >
-                  Ask SPACE AI →
-                </a>
+                  Begin Exploration
+                </button>
               </motion.div>
             </>
           )}
         </AnimatePresence>
 
-        {/* ==================================================
-            HERO
-        ================================================== */}
+        {/* ============================================== */}
+        {/* HERO */}
+        {/* ============================================== */}
 
         <section
-          className="hero-section"
+          className="hero"
           id="home"
         >
-          <motion.div
-            className="hero"
-            initial={{
-              opacity: 0,
-              x: -60,
-            }}
-            animate={
-              loading
-                ? {
-                    opacity: 0,
-                    x: -60,
-                  }
-                : {
-                    opacity: 1,
-                    x: 0,
-                  }
-            }
-            transition={{
-              duration: 1,
-              delay: 0.25,
-            }}
-          >
-            <p className="small-title">
-              WELCOME TO
-            </p>
-
-            <h1>
-              AI SPACE
-              <span>
-                EXPLORER
-              </span>
-            </h1>
-
-            <p className="description">
-              Explore planets,
-              galaxies, black holes
-              and the mysteries of
-              the universe through an
-              interactive animated
-              experience.
-            </p>
-
-            <motion.a
-              href="#planets"
-              className="explore-btn"
-              whileHover={{
-                scale: 1.08,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-            >
-              Start Exploring
-            </motion.a>
-          </motion.div>
+          <div className="hero-glow hero-glow-one"></div>
+          <div className="hero-glow hero-glow-two"></div>
 
           <motion.div
-            className="planet-area"
+            className="hero-content"
             initial={{
               opacity: 0,
-              scale: 0.7,
+              y: 40,
             }}
-            animate={
-              loading
-                ? {
-                    opacity: 0,
-                    scale: 0.7,
-                  }
-                : {
-                    opacity: 1,
-                    scale: 1,
-                  }
-            }
-            transition={{
-              duration: 1.2,
-              delay: 0.35,
-            }}
-          >
-            <motion.div
-              className="planet-wrapper"
-              animate={{
-                y: [
-                  0,
-                  -18,
-                  0,
-                ],
-              }}
-              transition={{
-                duration: 5,
-                repeat:
-                  Infinity,
-                ease:
-                  "easeInOut",
-              }}
-            >
-              <div className="orbit orbit-one">
-                <div className="moon"></div>
-              </div>
-
-              <div className="orbit orbit-two"></div>
-
-              <div className="planet">
-                <div className="planet-light"></div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* ==================================================
-            PLANETS
-        ================================================== */}
-
-        <section
-          className="planets-section"
-          id="planets"
-        >
-          <motion.div
-            className="section-heading"
-            initial={{
-              opacity: 0,
-              y: 50,
-            }}
-            whileInView={{
+            animate={{
               opacity: 1,
               y: 0,
             }}
-            viewport={{
-              once: true,
+            transition={{
+              duration: 1,
             }}
           >
-            <p className="section-tag">
-              SOLAR SYSTEM
+            <motion.p
+              className="hero-tag"
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              transition={{
+                delay: 0.4,
+              }}
+            >
+              EXPLORE BEYOND
+              EARTH
+            </motion.p>
+
+            <h1>
+              DISCOVER THE
+              <br />
+              <span>
+                UNIVERSE
+              </span>
+            </h1>
+
+            <p className="hero-description">
+              Journey across
+              planets, galaxies,
+              black holes and
+              legendary space
+              missions through an
+              immersive interactive
+              experience.
+            </p>
+
+            <div className="hero-actions">
+              <motion.button
+                className="primary-btn"
+                onClick={() =>
+                  scrollToSection(
+                    "planets"
+                  )
+                }
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.97,
+                }}
+              >
+                Start Exploring
+              </motion.button>
+
+              <motion.button
+                className="secondary-btn"
+                onClick={() =>
+                  scrollToSection(
+                    "ai"
+                  )
+                }
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.97,
+                }}
+              >
+                Ask SPACE AI
+              </motion.button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="hero-planet"
+            animate={{
+              y: [
+                -10,
+                10,
+                -10,
+              ],
+              rotate: [
+                0,
+                4,
+                0,
+              ],
+            }}
+            transition={{
+              duration: 7,
+              repeat:
+                Infinity,
+              ease:
+                "easeInOut",
+            }}
+          >
+            <div className="hero-planet-ring"></div>
+          </motion.div>
+        </section>
+
+        {/* ============================================== */}
+        {/* PLANETS */}
+        {/* ============================================== */}
+
+        <section
+          className="section planets-section"
+          id="planets"
+        >
+          <div className="section-heading">
+            <p>
+              CELESTIAL WORLDS
             </p>
 
             <h2>
               Explore the
-              <span>
-                {" "}
-                Planets
-              </span>
+              Planets
             </h2>
 
-            <p>
-              Discover all eight
-              planets in our solar
-              system.
-            </p>
-          </motion.div>
+            <span>
+              Discover the eight
+              incredible worlds
+              orbiting our Sun.
+            </span>
+          </div>
 
           <div className="planet-grid">
             {planets.map(
@@ -1609,256 +1647,178 @@ function App() {
                 planet,
                 index
               ) => (
-                <motion.div
-                  className="planet-card"
+                <motion.button
                   key={
                     planet.name
                   }
+                  className="planet-card"
                   initial={{
                     opacity: 0,
-                    y: 70,
+                    y: 35,
                   }}
                   whileInView={{
                     opacity: 1,
                     y: 0,
                   }}
-                  transition={{
-                    duration:
-                      0.6,
-                    delay:
-                      index *
-                      0.08,
-                  }}
                   viewport={{
                     once: true,
                   }}
-                  whileHover={{
-                    y: -12,
-                    scale:
-                      1.03,
+                  transition={{
+                    delay:
+                      index *
+                      0.06,
                   }}
+                  whileHover={{
+                    y: -8,
+                  }}
+                  onClick={() =>
+                    setSelectedPlanet(
+                      planet
+                    )
+                  }
                 >
                   <div
                     className={`card-planet ${planet.className}`}
                   ></div>
 
-                  <div className="planet-card-content">
-                    <p className="planet-number">
-                      {String(
-                        index +
-                          1
-                      ).padStart(
-                        2,
-                        "0"
-                      )}
-                    </p>
+                  <h3>
+                    {
+                      planet.name
+                    }
+                  </h3>
 
-                    <h3>
+                  <p>
+                    {
+                      planet.subtitle
+                    }
+                  </p>
+
+                  <div className="planet-card-stats">
+                    <span>
                       {
-                        planet.name
+                        planet.distance
                       }
-                    </h3>
+                    </span>
 
-                    <p className="planet-subtitle">
+                    <span>
                       {
-                        planet.subtitle
+                        planet.temp
                       }
-                    </p>
-
-                    <div className="planet-data">
-                      <div>
-                        <span>
-                          Distance
-                          from Sun
-                        </span>
-
-                        <strong>
-                          {
-                            planet.distance
-                          }
-                        </strong>
-                      </div>
-
-                      <div>
-                        <span>
-                          Average
-                          Temp
-                        </span>
-
-                        <strong>
-                          {
-                            planet.temp
-                          }
-                        </strong>
-                      </div>
-                    </div>
-
-                    <button
-                      className="planet-card-btn"
-                      onClick={() =>
-                        setSelectedPlanet(
-                          planet
-                        )
-                      }
-                    >
-                      Explore Planet →
-                    </button>
+                    </span>
                   </div>
-                </motion.div>
+                </motion.button>
               )
             )}
           </div>
         </section>
 
-        {/* ==================================================
-            SOLAR SYSTEM
-        ================================================== */}
+        {/* ============================================== */}
+        {/* SOLAR SYSTEM */}
+        {/* ============================================== */}
 
         <section
-          className="solar-system-section"
+          className="section solar-section"
           id="solar-system"
         >
-          <motion.div
-            className="section-heading"
-            initial={{
-              opacity: 0,
-              y: 50,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-          >
-            <p className="section-tag">
-              INTERACTIVE ORBIT
+          <div className="section-heading">
+            <p>
+              ORBITAL SIMULATION
             </p>
 
             <h2>
-              Our
-              <span>
-                {" "}
-                Solar System
-              </span>
+              Interactive Solar
+              System
             </h2>
 
-            <p>
-              Control the planetary
-              simulation, change its
-              speed and click any
-              planet to explore it.
-            </p>
-          </motion.div>
-
-          <div className="solar-controls">
-            <motion.button
-              className={
-                orbitsPaused
-                  ? "orbit-control-btn resume"
-                  : "orbit-control-btn"
-              }
-              onClick={() =>
-                setOrbitsPaused(
-                  (previous) =>
-                    !previous
-                )
-              }
-              whileHover={{
-                scale: 1.05,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-            >
-              {orbitsPaused
-                ? "▶ Resume Orbits"
-                : "Ⅱ Pause Orbits"}
-            </motion.button>
-
-            <div className="orbit-speed-controls">
-              {[
-                "slow",
-                "normal",
-                "fast",
-              ].map(
-                (speed) => (
-                  <button
-                    key={
-                      speed
-                    }
-                    className={
-                      orbitSpeed ===
-                      speed
-                        ? "speed-btn active"
-                        : "speed-btn"
-                    }
-                    onClick={() =>
-                      setOrbitSpeed(
-                        speed
-                      )
-                    }
-                  >
-                    {
-                      speed
-                    }
-                  </button>
-                )
-              )}
-            </div>
-
-            <span
-              className={
-                orbitsPaused
-                  ? "orbit-status paused"
-                  : "orbit-status active"
-              }
-            >
-              <i></i>
-
-              {orbitsPaused
-                ? "ORBITS PAUSED"
-                : `ORBITS ACTIVE • ${orbitSpeed.toUpperCase()}`}
+            <span>
+              Control the motion
+              of the planets and
+              click any world to
+              explore it.
             </span>
           </div>
 
-          <motion.div
-            className="solar-system-container"
-            initial={{
-              opacity: 0,
-              scale: 0.85,
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1,
-            }}
-            viewport={{
-              once: true,
-            }}
-          >
-            <motion.div
-              className="solar-sun"
-              animate={{
-                scale: [
-                  1,
-                  1.05,
-                  1,
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat:
-                  Infinity,
-              }}
+          <div className="solar-controls">
+            <button
+              className="solar-pause-btn"
+              onClick={() =>
+                setOrbitsPaused(
+                  (prev) =>
+                    !prev
+                )
+              }
             >
-              <div className="solar-sun-core"></div>
-              <div className="solar-sun-glow"></div>
+              {orbitsPaused
+                ? "▶ Resume"
+                : "⏸ Pause"}
+            </button>
 
-              <span>
-                SUN
-              </span>
-            </motion.div>
+            <div className="orbit-speed-controls">
+              <button
+                className={`speed-btn ${
+                  orbitSpeed ===
+                  "slow"
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setOrbitSpeed(
+                    "slow"
+                  )
+                }
+              >
+                Slow
+              </button>
+
+              <button
+                className={`speed-btn ${
+                  orbitSpeed ===
+                  "normal"
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setOrbitSpeed(
+                    "normal"
+                  )
+                }
+              >
+                Normal
+              </button>
+
+              <button
+                className={`speed-btn ${
+                  orbitSpeed ===
+                  "fast"
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setOrbitSpeed(
+                    "fast"
+                  )
+                }
+              >
+                Fast
+              </button>
+            </div>
+          </div>
+
+          <div className="solar-system-container">
+            <motion.button
+              className="solar-sun"
+              whileHover={{
+                scale: 1.08,
+              }}
+              onClick={() =>
+                scrollToSection(
+                  "ai"
+                )
+              }
+              title="The Sun"
+            >
+              <span></span>
+            </motion.button>
 
             {solarSystemPlanets.map(
               (item) => (
@@ -1882,76 +1842,33 @@ function App() {
                 />
               )
             )}
-
-            <div className="solar-system-center-label">
-              <span>
-                Interactive System
-              </span>
-
-              <small>
-                {orbitsPaused
-                  ? "Simulation paused"
-                  : `Speed: ${orbitSpeed}`}
-              </small>
-            </div>
-          </motion.div>
-
-          <div className="solar-system-legend">
-            {planets.map(
-              (
-                planet,
-                index
-              ) => (
-                <button
-                  key={
-                    planet.name
-                  }
-                  onClick={() =>
-                    setSelectedPlanet(
-                      planet
-                    )
-                  }
-                >
-                  <span
-                    className={`legend-dot ${planet.className}`}
-                  ></span>
-
-                  <span>
-                    {index + 1}.{" "}
-                    {planet.name}
-                  </span>
-                </button>
-              )
-            )}
           </div>
         </section>
 
-        {/* ==================================================
-            MISSIONS
-        ================================================== */}
+        {/* ============================================== */}
+        {/* MISSIONS */}
+        {/* ============================================== */}
 
         <section
-          className="missions-section"
+          className="section missions-section"
           id="missions"
         >
           <div className="section-heading">
-            <p className="section-tag">
-              HUMANITY BEYOND EARTH
+            <p>
+              HUMAN DISCOVERY
             </p>
 
             <h2>
-              Legendary
-              <span>
-                {" "}
-                Space Missions
-              </span>
+              Legendary Space
+              Missions
             </h2>
 
-            <p>
-              Discover some of
-              humanity&apos;s greatest
-              journeys beyond Earth.
-            </p>
+            <span>
+              Explore missions
+              that changed our
+              understanding of
+              the universe.
+            </span>
           </div>
 
           <div className="missions-grid">
@@ -1960,67 +1877,51 @@ function App() {
                 mission,
                 index
               ) => (
-                <motion.div
+                <motion.button
                   className="mission-card"
                   key={
                     mission.name
                   }
                   initial={{
                     opacity: 0,
-                    y: 60,
+                    y: 30,
                   }}
                   whileInView={{
                     opacity: 1,
                     y: 0,
                   }}
-                  transition={{
-                    delay:
-                      index *
-                      0.12,
-                  }}
                   viewport={{
                     once: true,
                   }}
-                  whileHover={{
-                    y: -12,
-                    scale: 1.03,
+                  transition={{
+                    delay:
+                      index *
+                      0.08,
                   }}
+                  whileHover={{
+                    y: -8,
+                  }}
+                  onClick={() =>
+                    setSelectedMission(
+                      mission
+                    )
+                  }
                 >
-                  <div className="mission-top">
-                    <span>
-                      {
-                        mission.year
-                      }
-                    </span>
-
-                    <span>
-                      {
-                        mission.agency
-                      }
-                    </span>
+                  <div className="mission-number">
+                    0
+                    {index +
+                      1}
                   </div>
 
-                  <div className="rocket-container">
-                    <motion.div
-                      className="rocket"
-                      animate={{
-                        y: [
-                          0,
-                          -15,
-                          0,
-                        ],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat:
-                          Infinity,
-                      }}
-                    >
-                      🚀
-                    </motion.div>
-
-                    <div className="rocket-glow"></div>
-                  </div>
+                  <p>
+                    {
+                      mission.agency
+                    }{" "}
+                    •{" "}
+                    {
+                      mission.year
+                    }
+                  </p>
 
                   <h3>
                     {
@@ -2028,393 +1929,315 @@ function App() {
                     }
                   </h3>
 
-                  <p>
+                  <span>
+                    Destination:{" "}
                     {
-                      mission.description
+                      mission.destination
                     }
-                  </p>
-
-                  <button
-                    className="mission-btn"
-                    onClick={() =>
-                      setSelectedMission(
-                        mission
-                      )
-                    }
-                  >
-                    View Mission →
-                  </button>
-                </motion.div>
+                  </span>
+                </motion.button>
               )
             )}
           </div>
         </section>
 
-        {/* ==================================================
-            GALAXY
-        ================================================== */}
+        {/* ============================================== */}
+        {/* GALAXY */}
+        {/* ============================================== */}
 
         <section
-          className="galaxy-section"
-          id="galaxy"
+          className="section galaxy-section"
+          id="galaxies"
         >
-          <motion.div
-            className="galaxy-content"
-            initial={{
-              opacity: 0,
-              x: -60,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-          >
-            <p className="section-tag">
-              DEEP SPACE
-            </p>
+          <div className="galaxy-content">
+            <div>
+              <p className="eyebrow">
+                BEYOND THE MILKY
+                WAY
+              </p>
 
-            <h2>
-              Explore the
-              <span>
-                {" "}
-                Galaxy
-              </span>
-            </h2>
+              <h2>
+                Explore Distant
+                Galaxies
+              </h2>
 
-            <p className="galaxy-description">
-              Travel beyond our solar
-              system and discover the
-              immense structures that
-              fill the universe.
-            </p>
+              <p>
+                Travel millions
+                of light-years
+                beyond our solar
+                system and
+                discover enormous
+                stellar cities
+                scattered across
+                the universe.
+              </p>
 
-            <motion.button
-              className="galaxy-btn"
-              onClick={() =>
-                setShowGalaxyExplorer(
-                  true
-                )
-              }
-              whileHover={{
-                scale: 1.06,
+              <motion.button
+                className="primary-btn"
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.96,
+                }}
+                onClick={() =>
+                  setShowGalaxyExplorer(
+                    true
+                  )
+                }
+              >
+                Open Galaxy
+                Explorer
+              </motion.button>
+            </div>
+
+            <motion.div
+              className="galaxy-visual"
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 80,
+                repeat:
+                  Infinity,
+                ease:
+                  "linear",
               }}
             >
-              Enter Deep Space →
-            </motion.button>
-          </motion.div>
-
-          <motion.div
-            className="galaxy-visual"
-            initial={{
-              opacity: 0,
-              scale: 0.7,
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1,
-            }}
-            viewport={{
-              once: true,
-            }}
-          >
-            <div className="galaxy">
               <div className="galaxy-core"></div>
-
-              <div className="galaxy-arm arm-one"></div>
-              <div className="galaxy-arm arm-two"></div>
-              <div className="galaxy-arm arm-three"></div>
-
-              <div className="galaxy-star star-one"></div>
-              <div className="galaxy-star star-two"></div>
-              <div className="galaxy-star star-three"></div>
-              <div className="galaxy-star star-four"></div>
-              <div className="galaxy-star star-five"></div>
-              <div className="galaxy-star star-six"></div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </section>
 
-        {/* ==================================================
-            BLACK HOLE
-        ================================================== */}
+        {/* ============================================== */}
+        {/* BLACK HOLE */}
+        {/* ============================================== */}
 
         <section
-          className="blackhole-section"
-          id="blackhole"
+          className="section black-hole-section"
+          id="black-hole"
         >
-          <div className="blackhole-visual">
-            <div className="blackhole-wrapper">
-              <div className="blackhole-glow"></div>
-
-              <div className="accretion-disk disk-one"></div>
-              <div className="accretion-disk disk-two"></div>
-              <div className="accretion-disk disk-three"></div>
-
-              <div className="blackhole-core"></div>
-
-              <div className="warp-ring warp-one"></div>
-              <div className="warp-ring warp-two"></div>
-              <div className="warp-ring warp-three"></div>
-            </div>
+          <div className="black-hole-visual">
+            <div className="black-hole-glow"></div>
+            <div className="black-hole-disk"></div>
+            <div className="black-hole-center"></div>
+            <div className="gravity-ring gravity-ring-one"></div>
+            <div className="gravity-ring gravity-ring-two"></div>
           </div>
 
-          <div className="blackhole-content">
-            <p className="section-tag">
-              GRAVITY BEYOND IMAGINATION
+          <div className="black-hole-content">
+            <p className="eyebrow">
+              INTO THE UNKNOWN
             </p>
 
             <h2>
-              Enter the
-              <span>
-                {" "}
-                Black Hole
-              </span>
+              Experience a
+              Black Hole
             </h2>
 
-            <p className="blackhole-description">
-              Black holes are regions
-              where gravity becomes so
-              powerful that even light
-              cannot escape.
+            <p>
+              Approach one of
+              the universe's
+              most mysterious
+              objects and
+              experience an
+              animated journey
+              toward the event
+              horizon.
             </p>
 
             <motion.button
-              className="blackhole-btn"
+              className="primary-btn"
+              whileHover={{
+                scale: 1.05,
+              }}
+              whileTap={{
+                scale: 0.96,
+              }}
               onClick={() =>
                 setShowBlackHoleExperience(
                   true
                 )
               }
-              whileHover={{
-                scale: 1.06,
-              }}
             >
-              Approach Event Horizon →
+              Enter Experience
             </motion.button>
           </div>
         </section>
 
-        {/* ==================================================
-            SPACE TRAVEL
-        ================================================== */}
+        {/* ============================================== */}
+        {/* SPACE TRAVEL */}
+        {/* ============================================== */}
 
         <section
-          className="travel-section"
+          className={`section travel-section ${
+            isWarping
+              ? "warping"
+              : ""
+          }`}
           id="travel"
         >
-          <div className="travel-heading">
-            <p className="section-tag">
-              DEEP SPACE JOURNEY
+          <div className="travel-stars"></div>
+
+          <div className="asteroid asteroid-one"></div>
+          <div className="asteroid asteroid-two"></div>
+          <div className="asteroid asteroid-three"></div>
+          <div className="asteroid asteroid-four"></div>
+          <div className="asteroid asteroid-five"></div>
+          <div className="asteroid asteroid-six"></div>
+
+          {isWarping && (
+            <motion.div
+              className="warp-flash"
+              animate={{
+                opacity: [
+                  0,
+                  0.7,
+                  0,
+                ],
+
+                scale: [
+                  0.5,
+                  1.5,
+                  2,
+                ],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat:
+                  Infinity,
+              }}
+            />
+          )}
+
+          <div className="travel-content">
+            <p className="eyebrow">
+              INTERSTELLAR
+              JOURNEY
             </p>
 
             <h2>
               Travel Through
-              <span>
-                {" "}
-                The Unknown
-              </span>
+              Space
             </h2>
-          </div>
 
-          <div
-            className={
-              isWarping
-                ? "space-tunnel warp-active"
-                : "space-tunnel"
-            }
-          >
-            <div className="warp-status">
-              <span
-                className={
-                  isWarping
-                    ? "warp-status-dot active"
-                    : "warp-status-dot"
-                }
-              ></span>
+            <p>
+              Activate the warp
+              engine and begin a
+              visual journey
+              through deep
+              space.
+            </p>
 
-              <p>
-                {isWarping
-                  ? "WARP ACTIVE"
-                  : "WARP ENGINE READY"}
-              </p>
-            </div>
-
-            <div className="tunnel-core"></div>
-
-            <div className="speed-line line-one"></div>
-            <div className="speed-line line-two"></div>
-            <div className="speed-line line-three"></div>
-            <div className="speed-line line-four"></div>
-            <div className="speed-line line-five"></div>
-            <div className="speed-line line-six"></div>
-            <div className="speed-line line-seven"></div>
-            <div className="speed-line line-eight"></div>
-
-            <div className="asteroid asteroid-one"></div>
-            <div className="asteroid asteroid-two"></div>
-            <div className="asteroid asteroid-three"></div>
-            <div className="asteroid asteroid-four"></div>
-
-            <motion.div
-              className="spaceship"
-              animate={
-                isWarping
-                  ? {
-                      y: [
-                        0,
-                        -20,
-                        8,
-                        -12,
-                        0,
-                      ],
-                      x: [
-                        -3,
-                        4,
-                        -2,
-                        3,
-                        0,
-                      ],
-                      rotate: [
-                        -4,
-                        4,
-                        -3,
-                        3,
-                        -4,
-                      ],
-                      scale: [
-                        1,
-                        1.08,
-                        1,
-                      ],
-                    }
-                  : {
-                      y: [
-                        0,
-                        -12,
-                        0,
-                      ],
-                      rotate: [
-                        -2,
-                        2,
-                        -2,
-                      ],
-                    }
-              }
-              transition={{
-                duration:
-                  isWarping
-                    ? 0.7
-                    : 3,
-                repeat:
-                  Infinity,
-              }}
-            >
-              🚀
-            </motion.div>
-          </div>
-
-          <div className="travel-controls">
             <motion.button
-              className={
-                isWarping
-                  ? "warp-btn stop"
-                  : "warp-btn"
-              }
+              className="primary-btn"
               onClick={() =>
                 setIsWarping(
-                  (previous) =>
-                    !previous
+                  (prev) =>
+                    !prev
                 )
               }
               whileHover={{
                 scale: 1.05,
+              }}
+              whileTap={{
+                scale: 0.95,
               }}
             >
               {isWarping
                 ? "Stop Journey"
                 : "Start Journey"}
             </motion.button>
-
-            <a
-              href="#assistant"
-              className="travel-btn"
-            >
-              Continue To AI Guide →
-            </a>
-          </div>
-        </section>
-
-        {/* ==================================================
-            AI ASSISTANT
-        ================================================== */}
-
-        <section
-          className="assistant-section"
-          id="assistant"
-        >
-          <div className="assistant-info">
-            <p className="section-tag">
-              AI SPACE GUIDE
-            </p>
-
-            <h2>
-              Ask the
-              <span>
-                {" "}
-                Universe
-              </span>
-            </h2>
-
-            <p>
-              Ask questions about
-              planets, stars, galaxies,
-              black holes, rockets and
-              space missions.
-            </p>
-
-            <div className="assistant-features">
-              <div>
-                <span>✦</span>
-                <p>Planet Information</p>
-              </div>
-
-              <div>
-                <span>✦</span>
-                <p>Mission Facts</p>
-              </div>
-
-              <div>
-                <span>✦</span>
-                <p>Galaxy Knowledge</p>
-              </div>
-
-              <div>
-                <span>✦</span>
-                <p>Space Questions</p>
-              </div>
-            </div>
           </div>
 
           <motion.div
-            className="assistant-box"
-            initial={{
-              opacity: 0,
-              x: 70,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
+            className="spaceship"
+            animate={
+              isWarping
+                ? {
+                    x: [
+                      -20,
+                      25,
+                      -10,
+                      35,
+                      0,
+                    ],
+                    y: [
+                      0,
+                      -10,
+                      8,
+                      -5,
+                      0,
+                    ],
+                    rotate: [
+                      -45,
+                      -42,
+                      -47,
+                      -43,
+                      -45,
+                    ],
+                  }
+                : {
+                    y: [
+                      -6,
+                      6,
+                      -6,
+                    ],
+                  }
+            }
+            transition={
+              isWarping
+                ? {
+                    duration: 2,
+                    repeat:
+                      Infinity,
+                  }
+                : {
+                    duration: 3,
+                    repeat:
+                      Infinity,
+                    ease:
+                      "easeInOut",
+                  }
+            }
           >
+            <div className="spaceship-body"></div>
+            <div className="spaceship-window"></div>
+            <div className="spaceship-flame"></div>
+          </motion.div>
+        </section>
+
+        {/* ============================================== */}
+        {/* SPACE AI */}
+        {/* ============================================== */}
+
+        <section
+          className="section ai-section"
+          id="ai"
+        >
+          <div className="section-heading">
+            <p>
+              INTELLIGENT
+              EXPLORATION
+            </p>
+
+            <h2>
+              Ask SPACE AI
+            </h2>
+
+            <span>
+              Ask questions about
+              planets, stars,
+              galaxies, black
+              holes and space
+              exploration.
+            </span>
+          </div>
+
+          <div className="assistant-container">
             <div className="assistant-header">
-              <div className="ai-orb">
-                <div className="ai-orb-core"></div>
+              <div className="assistant-orb">
+                AI
               </div>
 
               <div className="assistant-header-info">
@@ -2422,73 +2245,60 @@ function App() {
                   SPACE AI
                 </h3>
 
-                <div className="assistant-status-row">
-                  <p
-                    className={
-                      backendOnline ===
+                <div
+                  className={`backend-status ${
+                    backendOnline ===
+                    true
+                      ? "online"
+                      : backendOnline ===
+                        false
+                      ? "offline"
+                      : "checking"
+                  }`}
+                >
+                  <span></span>
+
+                  {backendOnline ===
+                  true
+                    ? `Online${
+                        backendMode
+                          ? ` • ${backendMode.toUpperCase()}`
+                          : ""
+                      }`
+                    : backendOnline ===
                       false
-                        ? "backend-status offline"
-                        : backendOnline ===
-                          null
-                        ? "backend-status checking"
-                        : "backend-status online"
-                    }
-                  >
-                    <span className="online-dot"></span>
-
-                    {backendOnline ===
-                    null
-                      ? " Checking..."
-                      : backendOnline
-                      ? isTyping
-                        ? " Thinking"
-                        : " Online"
-                      : " Offline"}
-                  </p>
-
-                  {backendOnline &&
-                    backendMode && (
-                      <span className="demo-badge">
-                        {backendMode.toUpperCase()}
-                      </span>
-                    )}
+                    ? "Offline"
+                    : "Checking..."}
                 </div>
               </div>
 
-              <motion.button
+              <button
                 className="clear-chat-btn"
                 onClick={
                   clearChat
                 }
                 disabled={
-                  isTyping ||
-                  messages.length <=
-                    1
+                  isTyping
                 }
               >
-                ↻ Clear Chat
-              </motion.button>
+                Clear Chat
+              </button>
             </div>
 
             {backendOnline ===
               false && (
               <div className="backend-warning">
                 <div>
-                  <span>
-                    !
-                  </span>
+                  <strong>
+                    SPACE AI is
+                    offline
+                  </strong>
 
-                  <div>
-                    <strong>
-                      SPACE AI is offline
-                    </strong>
-
-                    <p>
-                      Start the backend
-                      server on port
-                      5000.
-                    </p>
-                  </div>
+                  <p>
+                    The backend
+                    could not be
+                    reached.
+                  </p>
                 </div>
 
                 <button
@@ -2501,16 +2311,88 @@ function App() {
               </div>
             )}
 
-            {lastError &&
-              backendOnline !==
-                false && (
-              <div
-                className={`ai-error-box ${lastError.type}`}
-              >
-                <div>
-                  <span className="ai-error-icon">
-                    !
+            <div className="messages-container">
+              {messages.map(
+                (
+                  message,
+                  index
+                ) => (
+                  <motion.div
+                    key={`${message.type}-${index}`}
+                    className={`message ${message.type}`}
+                    initial={{
+                      opacity: 0,
+                      y: 10,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                  >
+                    {message.type ===
+                      "ai" && (
+                      <span className="message-avatar">
+                        AI
+                      </span>
+                    )}
+
+                    <div className="message-bubble">
+                      {
+                        message.text
+                      }
+                    </div>
+                  </motion.div>
+                )
+              )}
+
+              {isTyping && (
+                <motion.div
+                  className="message ai"
+                  initial={{
+                    opacity: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                  }}
+                >
+                  <span className="message-avatar">
+                    AI
                   </span>
+
+                  <div className="message-bubble typing-bubble">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </motion.div>
+              )}
+
+              <div
+                ref={
+                  messagesEndRef
+                }
+              ></div>
+            </div>
+
+            <AnimatePresence>
+              {lastError && (
+                <motion.div
+                  className={`ai-error-box ${lastError.type}`}
+                  initial={{
+                    opacity: 0,
+                    y: 10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                >
+                  <div className="ai-error-icon">
+                    !
+                  </div>
 
                   <div>
                     <strong>
@@ -2525,133 +2407,22 @@ function App() {
                       }
                     </p>
                   </div>
-                </div>
 
-                <button
-                  onClick={() =>
-                    setLastError(
-                      null
-                    )
-                  }
-                >
-                  ×
-                </button>
-              </div>
-            )}
+                  <button
+                    onClick={() =>
+                      setLastError(
+                        null
+                      )
+                    }
+                  >
+                    ×
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            <div className="chat-area">
-              <div className="messages-container">
-                {messages.map(
-                  (
-                    message,
-                    index
-                  ) => (
-                    <motion.div
-                      key={
-                        index
-                      }
-                      className={
-                        message.type ===
-                        "ai"
-                          ? "ai-message"
-                          : "user-message"
-                      }
-                      initial={{
-                        opacity: 0,
-                        y: 15,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                    >
-                      {message.type ===
-                        "ai" && (
-                        <span>
-                          AI
-                        </span>
-                      )}
-
-                      <p>
-                        {
-                          message.text
-                        }
-                      </p>
-                    </motion.div>
-                  )
-                )}
-
-                {isTyping && (
-                  <div className="ai-message typing-message">
-                    <span>
-                      AI
-                    </span>
-
-                    <div className="typing-dots">
-                      <i></i>
-                      <i></i>
-                      <i></i>
-                    </div>
-                  </div>
-                )}
-
-                <div
-                  ref={
-                    messagesEndRef
-                  }
-                ></div>
-              </div>
-
-              <div className="suggestion-title">
-                Try asking:
-              </div>
-
-              <div className="question-suggestions">
-                {[
-                  "What is Jupiter?",
-                  "Why does Saturn have rings?",
-                  "What is a black hole?",
-                  "How do rockets reach orbit?",
-                ].map(
-                  (item) => (
-                    <button
-                      key={
-                        item
-                      }
-                      disabled={
-                        isTyping ||
-                        backendOnline !==
-                          true
-                      }
-                      onClick={() =>
-                        sendMessage(
-                          item
-                        )
-                      }
-                    >
-                      {
-                        item
-                      }
-                    </button>
-                  )
-                )}
-              </div>
-            </div>
-
-            <div className="chat-input-area">
-              <input
-                type="text"
-                placeholder={
-                  backendOnline ===
-                    null
-                    ? "Connecting to SPACE AI..."
-                    : backendOnline ===
-                      false
-                    ? "SPACE AI is offline..."
-                    : isTyping
-                    ? "SPACE AI is thinking..."
-                    : "Ask anything about space..."
-                }
+            <div className="assistant-input-wrapper">
+              <textarea
                 value={
                   question
                 }
@@ -2666,73 +2437,227 @@ function App() {
                 onKeyDown={
                   handleKeyDown
                 }
+                placeholder={
+                  backendOnline ===
+                  false
+                    ? "SPACE AI is currently offline..."
+                    : "Ask SPACE AI about the universe..."
+                }
                 disabled={
                   isTyping ||
-                  backendOnline !==
-                    true
+                  backendOnline ===
+                    false
                 }
+                rows="1"
               />
 
-              <button
-                onClick={() =>
-                  sendMessage()
+              <motion.button
+                onClick={
+                  sendMessage
                 }
                 disabled={
+                  !question.trim() ||
                   isTyping ||
-                  backendOnline !==
-                    true ||
-                  !question.trim()
+                  backendOnline ===
+                    false
                 }
+                whileHover={
+                  question.trim() &&
+                  !isTyping &&
+                  backendOnline !==
+                    false
+                    ? {
+                        scale: 1.06,
+                      }
+                    : {}
+                }
+                whileTap={{
+                  scale: 0.95,
+                }}
               >
                 {isTyping
-                  ? "•••"
-                  : "➤"}
-              </button>
+                  ? "..."
+                  : "Send"}
+              </motion.button>
             </div>
-          </motion.div>
+
+            <div className="quick-questions">
+              {[
+                "What is a black hole?",
+                "Tell me about Jupiter",
+                "How do rockets reach orbit?",
+              ].map(
+                (
+                  item
+                ) => (
+                  <button
+                    key={
+                      item
+                    }
+                    onClick={() =>
+                      setQuestion(
+                        item
+                      )
+                    }
+                    disabled={
+                      isTyping ||
+                      backendOnline ===
+                        false
+                    }
+                  >
+                    {
+                      item
+                    }
+                  </button>
+                )
+              )}
+            </div>
+          </div>
         </section>
 
-        {/* ==================================================
-            PLANET MODAL
-        ================================================== */}
+        {/* ============================================== */}
+        {/* FOOTER */}
+        {/* ============================================== */}
 
-        {selectedPlanet && (
-          <div
-            className="planet-modal-overlay"
-            onClick={() =>
-              setSelectedPlanet(
-                null
-              )
-            }
-          >
+        <footer className="footer">
+          <div>
+            <h2>
+              SPACE
+              <span>AI</span>
+            </h2>
+
+            <p>
+              Explore. Learn.
+              Discover the
+              Universe.
+            </p>
+          </div>
+
+          <div className="footer-links">
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "planets"
+                )
+              }
+            >
+              Planets
+            </button>
+
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "missions"
+                )
+              }
+            >
+              Missions
+            </button>
+
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "galaxies"
+                )
+              }
+            >
+              Galaxies
+            </button>
+
+            <button
+              onClick={() =>
+                scrollToSection(
+                  "ai"
+                )
+              }
+            >
+              SPACE AI
+            </button>
+          </div>
+
+          <p className="footer-copy">
+            © 2026 AI Space
+            Explorer
+          </p>
+        </footer>
+
+        {/* ============================================== */}
+        {/* BACK TO TOP */}
+        {/* ============================================== */}
+
+        <motion.button
+          className="back-to-top"
+          onClick={
+            backToTop
+          }
+          whileHover={{
+            scale: 1.12,
+            y: -3,
+          }}
+          whileTap={{
+            scale: 0.9,
+          }}
+          title="Back to top"
+        >
+          🚀
+        </motion.button>
+
+        {/* ============================================== */}
+        {/* PLANET MODAL */}
+        {/* ============================================== */}
+
+        <AnimatePresence>
+          {selectedPlanet && (
             <motion.div
-              className="planet-modal"
+              className="modal-backdrop"
               initial={{
                 opacity: 0,
-                scale: 0.75,
               }}
               animate={{
                 opacity: 1,
-                scale: 1,
               }}
-              onClick={(
-                event
-              ) =>
-                event.stopPropagation()
+              exit={{
+                opacity: 0,
+              }}
+              onClick={() =>
+                setSelectedPlanet(
+                  null
+                )
               }
             >
-              <button
-                className="modal-close"
-                onClick={() =>
-                  setSelectedPlanet(
-                    null
-                  )
+              <motion.div
+                className="space-modal"
+                initial={{
+                  opacity: 0,
+                  scale: 0.85,
+                  y: 40,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.9,
+                }}
+                onClick={(
+                  event
+                ) =>
+                  event.stopPropagation()
                 }
               >
-                ×
-              </button>
+                <button
+                  className="modal-close"
+                  onClick={() =>
+                    setSelectedPlanet(
+                      null
+                    )
+                  }
+                >
+                  ×
+                </button>
 
-              <div className="modal-planet-side">
                 <motion.div
                   className={`modal-planet ${selectedPlanet.className}`}
                   animate={{
@@ -2742,13 +2667,12 @@ function App() {
                     duration: 25,
                     repeat:
                       Infinity,
-                    ease: "linear",
+                    ease:
+                      "linear",
                   }}
-                />
-              </div>
+                ></motion.div>
 
-              <div className="modal-info">
-                <p className="section-tag">
+                <p className="eyebrow">
                   PLANET PROFILE
                 </p>
 
@@ -2757,12 +2681,6 @@ function App() {
                     selectedPlanet.name
                   }
                 </h2>
-
-                <h4>
-                  {
-                    selectedPlanet.subtitle
-                  }
-                </h4>
 
                 <p className="modal-description">
                   {
@@ -2773,8 +2691,9 @@ function App() {
                 <div className="modal-stats">
                   <div>
                     <span>
-                      Distance from Sun
+                      Distance
                     </span>
+
                     <strong>
                       {
                         selectedPlanet.distance
@@ -2784,8 +2703,9 @@ function App() {
 
                   <div>
                     <span>
-                      Average Temperature
+                      Temperature
                     </span>
+
                     <strong>
                       {
                         selectedPlanet.temp
@@ -2797,6 +2717,7 @@ function App() {
                     <span>
                       Diameter
                     </span>
+
                     <strong>
                       {
                         selectedPlanet.diameter
@@ -2808,6 +2729,7 @@ function App() {
                     <span>
                       Moons
                     </span>
+
                     <strong>
                       {
                         selectedPlanet.moons
@@ -2817,8 +2739,10 @@ function App() {
 
                   <div>
                     <span>
-                      Orbital Period
+                      Orbital
+                      Period
                     </span>
+
                     <strong>
                       {
                         selectedPlanet.year
@@ -2826,77 +2750,79 @@ function App() {
                     </strong>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
 
-        {/* ==================================================
-            MISSION MODAL
-        ================================================== */}
+        {/* ============================================== */}
+        {/* MISSION MODAL */}
+        {/* ============================================== */}
 
-        {selectedMission && (
-          <div
-            className="mission-modal-overlay"
-            onClick={() =>
-              setSelectedMission(
-                null
-              )
-            }
-          >
+        <AnimatePresence>
+          {selectedMission && (
             <motion.div
-              className="mission-modal"
+              className="modal-backdrop"
               initial={{
                 opacity: 0,
-                scale: 0.8,
               }}
               animate={{
                 opacity: 1,
-                scale: 1,
               }}
-              onClick={(
-                event
-              ) =>
-                event.stopPropagation()
+              exit={{
+                opacity: 0,
+              }}
+              onClick={() =>
+                setSelectedMission(
+                  null
+                )
               }
             >
-              <button
-                className="mission-modal-close"
-                onClick={() =>
-                  setSelectedMission(
-                    null
-                  )
+              <motion.div
+                className="space-modal mission-modal"
+                initial={{
+                  opacity: 0,
+                  scale: 0.88,
+                  y: 40,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.9,
+                }}
+                onClick={(
+                  event
+                ) =>
+                  event.stopPropagation()
                 }
               >
-                ×
-              </button>
-
-              <div className="mission-modal-visual">
-                <motion.div
-                  className="mission-modal-rocket"
-                  animate={{
-                    y: [
-                      0,
-                      -18,
-                      0,
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat:
-                      Infinity,
-                  }}
+                <button
+                  className="modal-close"
+                  onClick={() =>
+                    setSelectedMission(
+                      null
+                    )
+                  }
                 >
+                  ×
+                </button>
+
+                <div className="mission-modal-icon">
                   🚀
-                </motion.div>
+                </div>
 
-                <div className="mission-modal-glow"></div>
-                <div className="mission-orbit-ring"></div>
-              </div>
-
-              <div className="mission-modal-info">
-                <p className="section-tag">
-                  SPACE MISSION
+                <p className="eyebrow">
+                  {
+                    selectedMission.agency
+                  }{" "}
+                  •{" "}
+                  {
+                    selectedMission.year
+                  }
                 </p>
 
                 <h2>
@@ -2905,31 +2831,18 @@ function App() {
                   }
                 </h2>
 
-                <div className="mission-modal-meta">
-                  <span>
-                    {
-                      selectedMission.agency
-                    }
-                  </span>
-
-                  <span>
-                    {
-                      selectedMission.year
-                    }
-                  </span>
-                </div>
-
-                <p className="mission-modal-description">
+                <p className="modal-description">
                   {
                     selectedMission.description
                   }
                 </p>
 
-                <div className="mission-modal-stats">
+                <div className="modal-stats">
                   <div>
                     <span>
                       Destination
                     </span>
+
                     <strong>
                       {
                         selectedMission.destination
@@ -2941,6 +2854,7 @@ function App() {
                     <span>
                       Crew
                     </span>
+
                     <strong>
                       {
                         selectedMission.crew
@@ -2952,6 +2866,7 @@ function App() {
                     <span>
                       Duration
                     </span>
+
                     <strong>
                       {
                         selectedMission.duration
@@ -2963,6 +2878,7 @@ function App() {
                     <span>
                       Status
                     </span>
+
                     <strong>
                       {
                         selectedMission.status
@@ -2970,58 +2886,144 @@ function App() {
                     </strong>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
 
-        {/* ==================================================
-            GALAXY MODAL
-        ================================================== */}
+        {/* ============================================== */}
+        {/* GALAXY EXPLORER MODAL */}
+        {/* ============================================== */}
 
-        {showGalaxyExplorer && (
-          <div
-            className="galaxy-modal-overlay"
-            onClick={() =>
-              setShowGalaxyExplorer(
-                false
-              )
-            }
-          >
+        <AnimatePresence>
+          {showGalaxyExplorer && (
             <motion.div
-              className="galaxy-modal"
+              className="modal-backdrop"
               initial={{
                 opacity: 0,
-                scale: 0.8,
               }}
               animate={{
                 opacity: 1,
-                scale: 1,
               }}
-              onClick={(
-                event
-              ) =>
-                event.stopPropagation()
+              exit={{
+                opacity: 0,
+              }}
+              onClick={() =>
+                setShowGalaxyExplorer(
+                  false
+                )
               }
             >
-              <button
-                className="galaxy-modal-close"
-                onClick={() =>
-                  setShowGalaxyExplorer(
-                    false
-                  )
+              <motion.div
+                className="space-modal galaxy-modal"
+                initial={{
+                  opacity: 0,
+                  scale: 0.88,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.9,
+                }}
+                onClick={(
+                  event
+                ) =>
+                  event.stopPropagation()
                 }
               >
-                ×
-              </button>
+                <button
+                  className="modal-close"
+                  onClick={() =>
+                    setShowGalaxyExplorer(
+                      false
+                    )
+                  }
+                >
+                  ×
+                </button>
 
-              <div className="galaxy-modal-left">
-                <div className="galaxy-explorer-visual">
-                  <div className="explorer-galaxy">
-                    <div className="explorer-galaxy-core"></div>
-                    <div className="explorer-arm explorer-arm-one"></div>
-                    <div className="explorer-arm explorer-arm-two"></div>
-                    <div className="explorer-arm explorer-arm-three"></div>
+                <motion.div
+                  className="modal-galaxy-visual"
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 40,
+                    repeat:
+                      Infinity,
+                    ease:
+                      "linear",
+                  }}
+                >
+                  <div className="modal-galaxy-core"></div>
+                </motion.div>
+
+                <p className="eyebrow">
+                  GALAXY EXPLORER
+                </p>
+
+                <h2>
+                  {
+                    selectedGalaxy.name
+                  }
+                </h2>
+
+                <p className="modal-description">
+                  {
+                    selectedGalaxy.description
+                  }
+                </p>
+
+                <div className="modal-stats">
+                  <div>
+                    <span>
+                      Type
+                    </span>
+
+                    <strong>
+                      {
+                        selectedGalaxy.type
+                      }
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Distance
+                    </span>
+
+                    <strong>
+                      {
+                        selectedGalaxy.distance
+                      }
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Diameter
+                    </span>
+
+                    <strong>
+                      {
+                        selectedGalaxy.diameter
+                      }
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Stars
+                    </span>
+
+                    <strong>
+                      {
+                        selectedGalaxy.stars
+                      }
+                    </strong>
                   </div>
                 </div>
 
@@ -3037,8 +3039,8 @@ function App() {
                         className={
                           selectedGalaxy.name ===
                           galaxy.name
-                            ? "galaxy-select-btn active"
-                            : "galaxy-select-btn"
+                            ? "active"
+                            : ""
                         }
                         onClick={() =>
                           setSelectedGalaxy(
@@ -3053,303 +3055,159 @@ function App() {
                     )
                   )}
                 </div>
-              </div>
-
-              <div className="galaxy-modal-info">
-                <p className="section-tag">
-                  GALAXY DATABASE
-                </p>
-
-                <h2>
-                  {
-                    selectedGalaxy.name
-                  }
-                </h2>
-
-                <h4>
-                  {
-                    selectedGalaxy.type
-                  }
-                </h4>
-
-                <p className="galaxy-modal-description">
-                  {
-                    selectedGalaxy.description
-                  }
-                </p>
-
-                <div className="galaxy-modal-stats">
-                  <div>
-                    <span>
-                      Distance
-                    </span>
-                    <strong>
-                      {
-                        selectedGalaxy.distance
-                      }
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>
-                      Diameter
-                    </span>
-                    <strong>
-                      {
-                        selectedGalaxy.diameter
-                      }
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>
-                      Stars
-                    </span>
-                    <strong>
-                      {
-                        selectedGalaxy.stars
-                      }
-                    </strong>
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
 
-        {/* ==================================================
-            BLACK HOLE MODAL
-        ================================================== */}
+        {/* ============================================== */}
+        {/* BLACK HOLE EXPERIENCE MODAL */}
+        {/* ============================================== */}
 
-        {showBlackHoleExperience && (
-          <div
-            className="blackhole-experience-overlay"
-            onClick={() =>
-              setShowBlackHoleExperience(
-                false
-              )
-            }
-          >
+        <AnimatePresence>
+          {showBlackHoleExperience && (
             <motion.div
-              className="blackhole-experience"
+              className="modal-backdrop black-hole-modal-backdrop"
               initial={{
                 opacity: 0,
-                scale: 0.7,
               }}
               animate={{
                 opacity: 1,
-                scale: 1,
               }}
-              onClick={(
-                event
-              ) =>
-                event.stopPropagation()
+              exit={{
+                opacity: 0,
+              }}
+              onClick={() =>
+                setShowBlackHoleExperience(
+                  false
+                )
               }
             >
-              <button
-                className="blackhole-experience-close"
-                onClick={() =>
-                  setShowBlackHoleExperience(
-                    false
-                  )
+              <motion.div
+                className="black-hole-experience"
+                initial={{
+                  opacity: 0,
+                  scale: 0.85,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.9,
+                }}
+                onClick={(
+                  event
+                ) =>
+                  event.stopPropagation()
                 }
               >
-                ×
-              </button>
+                <button
+                  className="modal-close"
+                  onClick={() =>
+                    setShowBlackHoleExperience(
+                      false
+                    )
+                  }
+                >
+                  ×
+                </button>
 
-              <div className="event-horizon-scene">
+                <div className="event-stars"></div>
+
+                <div className="experience-black-hole">
+                  <motion.div
+                    className="experience-disk"
+                    animate={{
+                      rotate: 360,
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat:
+                        Infinity,
+                      ease:
+                        "linear",
+                    }}
+                  ></motion.div>
+
+                  <div className="experience-event-horizon"></div>
+                </div>
+
                 <motion.div
-                  className="event-blackhole-wrapper"
+                  className="falling-spacecraft"
                   animate={{
+                    x: [
+                      0,
+                      40,
+                      70,
+                      100,
+                    ],
+
+                    y: [
+                      0,
+                      30,
+                      70,
+                      120,
+                    ],
+
+                    rotate: [
+                      0,
+                      80,
+                      180,
+                      300,
+                    ],
+
                     scale: [
+                      1,
                       0.9,
-                      1.05,
-                      0.9,
+                      0.7,
+                      0.2,
+                    ],
+
+                    opacity: [
+                      1,
+                      1,
+                      0.7,
+                      0,
                     ],
                   }}
                   transition={{
                     duration: 5,
                     repeat:
                       Infinity,
-                  }}
-                >
-                  <div className="event-glow"></div>
-                  <div className="event-disk event-disk-one"></div>
-                  <div className="event-disk event-disk-two"></div>
-                  <div className="event-disk event-disk-three"></div>
-                  <div className="event-blackhole-core"></div>
-                  <div className="gravity-ring gravity-ring-one"></div>
-                  <div className="gravity-ring gravity-ring-two"></div>
-                  <div className="gravity-ring gravity-ring-three"></div>
-                  <div className="gravity-ring gravity-ring-four"></div>
-                </motion.div>
-
-                <motion.div
-                  className="falling-spacecraft"
-                  animate={{
-                    x: [
-                      240,
-                      100,
-                      25,
-                      0,
-                    ],
-                    y: [
-                      -150,
-                      -70,
-                      -20,
-                      0,
-                    ],
-                    scale: [
-                      1,
-                      0.8,
-                      0.45,
-                      0.1,
-                    ],
-                    rotate: [
-                      -35,
-                      -70,
-                      -160,
-                      -300,
-                    ],
-                    opacity: [
-                      1,
-                      1,
-                      0.8,
-                      0,
-                    ],
-                  }}
-                  transition={{
-                    duration: 7,
-                    repeat:
-                      Infinity,
+                    ease:
+                      "easeIn",
                   }}
                 >
                   🚀
                 </motion.div>
 
-                <div className="event-horizon-text">
-                  <p className="section-tag">
-                    EVENT HORIZON SIMULATION
+                <div className="black-hole-experience-text">
+                  <p className="eyebrow">
+                    EVENT HORIZON
+                    SIMULATION
                   </p>
 
                   <h2>
-                    Beyond the
-                    <span>
-                      {" "}
-                      Point of No Return
-                    </span>
+                    Approaching
+                    the Unknown
                   </h2>
 
                   <p>
-                    Watch a spacecraft
-                    approach the event
-                    horizon where gravity
-                    becomes extremely
-                    powerful.
+                    Beyond the
+                    event horizon,
+                    escape would
+                    require
+                    traveling
+                    faster than
+                    light.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </div>
-        )}
-
-        {/* ==================================================
-            FOOTER
-        ================================================== */}
-
-        <footer className="footer">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <h2>
-                SPACE
-                <span>
-                  AI
-                </span>
-              </h2>
-
-              <p>
-                Explore planets,
-                galaxies, black holes
-                and the mysteries of
-                the universe.
-              </p>
-            </div>
-
-            <div className="footer-links">
-              <div>
-                <h3>
-                  Explore
-                </h3>
-
-                <a href="#home">
-                  Home
-                </a>
-
-                <a href="#planets">
-                  Planets
-                </a>
-
-                <a href="#solar-system">
-                  Solar System
-                </a>
-
-                <a href="#missions">
-                  Missions
-                </a>
-              </div>
-
-              <div>
-                <h3>
-                  Universe
-                </h3>
-
-                <a href="#galaxy">
-                  Galaxy
-                </a>
-
-                <a href="#blackhole">
-                  Black Hole
-                </a>
-
-                <a href="#travel">
-                  Space Travel
-                </a>
-              </div>
-
-              <div>
-                <h3>
-                  AI
-                </h3>
-
-                <a href="#assistant">
-                  Space Assistant
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="footer-bottom">
-            <p>
-              © 2026 SPACEAI. Built
-              for exploring the
-              universe.
-            </p>
-          </div>
-        </footer>
-
-        <motion.a
-          href="#home"
-          className="back-to-top"
-          whileHover={{
-            scale: 1.15,
-            y: -5,
-          }}
-          whileTap={{
-            scale: 0.9,
-          }}
-        >
-          🚀
-        </motion.a>
+          )}
+        </AnimatePresence>
       </motion.div>
     </>
   );
